@@ -1,20 +1,113 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="reset.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="style.css">
-    <script src="game.js"></script>
-    
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css">
+    <script src="assets/javascript/game.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
 
 
 </head>
+
 <body>
+    <h1> Rupee Collector!</h1>
+
+    <h2>Number to Guess: <span id="number-to-guess"></span></h2>
+
+    <h2>Your Score: <span id="your-score"></span></h2>
+
+    <h2>Wins: <span id="winsStat"></span></h2>
+
+    <h2>Losses: <span id="lossesStat"></span></h2>
+
+    <img class="BlueRupee" src="assets/images/BlueRupee.jpeg" alt="BlueRupee">
+    <img class="GreenRupee" src="assets/images/GreenRupee.jpeg" alt="GreenRupee">
+    <img class="RedRupee" src="assets/images/RedRupee.jpeg" alt="RedRupee">
+    <img class="YellowRupee" src="assets/images/YellowRupee.jpeg" alt="YellowRupee">
 
 
-    
+    <script type="text/javascript">
+
+        var totalWins = 0;
+        var totalLosses = 0;
+        var counter = 0;
+        var numberOptions;
+        var targetNumber;
+
+        function updateHTML() {
+            document.getElementById("your-score").innerHTML = counter;
+            document.getElementById("winsStat").innerHTML = totalWins;
+            document.getElementById("lossesStat").innerHTML = totalLosses;
+        }
+
+        function checkState() {
+            // checks if we've won (or lost)
+            if (counter === targetNumber) {
+                totalWins = totalWins + 1;
+                initialize();
+            }
+            else if (counter > targetNumber) {
+                totalLosses = totalLosses + 1;
+                initialize();
+            }
+        }
+
+        $(".BlueRupee").click(function () {
+            counter = counter + numberOptions[0];
+            checkState();
+            updateHTML();
+        })
+
+        $(".GreenRupee").click(function () {
+            counter = counter + numberOptions[1];
+            checkState();
+            updateHTML();
+        })
+
+        $(".RedRupee").click(function () {
+            counter = counter + numberOptions[2];
+            checkState();
+            updateHTML();
+        })
+
+        $(".YellowRupee").click(function () {
+            counter = counter + numberOptions[3];
+            checkState();
+            updateHTML();
+        })
+
+        function initialize() {
+
+
+
+            targetNumber = Math.floor(Math.random() * 111) + 9;
+            console.log(targetNumber)
+            $("#number-to-guess").text(targetNumber);
+
+            counter = 0;
+            document.getElementById("your-score").innerHTML = counter;
+
+            //Make an array that picks 4 random numbers
+            numberOptions = [Math.floor(Math.random() * 12) + 1, Math.floor(Math.random() * 12) + 1, Math.floor(Math.random() * 12) + 1, Math.floor(Math.random() * 12) + 1];
+
+            console.log(numberOptions);
+
+        }
+
+        initialize();
+        updateHTML();
+
+    </script>
+
+
+
 </body>
+
 </html>
